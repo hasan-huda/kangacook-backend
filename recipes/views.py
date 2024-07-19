@@ -1,18 +1,10 @@
-from django.http import response
-from django.shortcuts import render
-from rest_framework.response import Response
+# recipes/views.py
 from rest_framework.decorators import api_view
-from rest_framework.serializers import Serializer
-from .models import Recipe
-from .serializers import RecipeSerializer
-from . import serializers
-from .utils import updateRecipe, getRecipeDetail, deleteRecipe, getRecipesList, createRecipe
-# Create your views here.
-
+from rest_framework.response import Response
+from .utils import getRecipesList, getRecipeDetail, createRecipe, updateRecipe, deleteRecipe
 
 @api_view(['GET'])
 def getRoutes(request):
-
     routes = [
         {
             'Endpoint': '/recipes/',
@@ -21,7 +13,7 @@ def getRoutes(request):
             'description': 'Returns an array of recipes'
         },
         {
-            'Endpoint': '/recipes/id',
+            'Endpoint': '/recipes/<id>/',
             'method': 'GET',
             'body': None,
             'description': 'Returns a single recipe object'
@@ -33,47 +25,32 @@ def getRoutes(request):
             'description': 'Creates new recipe with data sent in post request'
         },
         {
-            'Endpoint': '/recipes/id/update/',
+            'Endpoint': '/recipes/<id>/update/',
             'method': 'PUT',
             'body': {'body': ""},
-            'description': 'Creates an existing recipe with data sent in post request'
+            'description': 'Updates an existing recipe with data sent in post request'
         },
         {
-            'Endpoint': '/recipes/id/delete/',
+            'Endpoint': '/recipes/<id>/delete/',
             'method': 'DELETE',
             'body': None,
-            'description': 'Deletes and exiting recipe'
+            'description': 'Deletes an existing recipe'
         },
     ]
     return Response(routes)
 
-
-# /recipes GET
-# /recipes POST
-# /recipes/<id> GET
-# /recipes/<id> PUT
-# /recipes/<id> DELETE
-
 @api_view(['GET', 'POST'])
 def getRecipes(request):
-
     if request.method == 'GET':
         return getRecipesList(request)
-
-    if request.method == 'POST':
+    elif request.method == 'POST':
         return createRecipe(request)
-
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def getRecipe(request, pk):
-
     if request.method == 'GET':
         return getRecipeDetail(request, pk)
-
-    if request.method == 'PUT':
+    elif request.method == 'PUT':
         return updateRecipe(request, pk)
-
-    if request.method == 'DELETE':
+    elif request.method == 'DELETE':
         return deleteRecipe(request, pk)
-
-
