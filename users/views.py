@@ -1,7 +1,7 @@
 # users/views.py
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .utils import getUsersList, getUserDetail, createUser, updateUser, deleteUser
+from .utils import getUserIdByEmail, getUsersList, getUserDetail, createUser, updateUser, deleteUser
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -54,3 +54,7 @@ def user_detail(request, pk):
         return updateUser(request, pk)
     elif request.method == 'DELETE':
         return deleteUser(request, pk)
+
+@api_view(['GET'])
+def get_user_id_by_email(request, email):
+    return getUserIdByEmail(request, email)
