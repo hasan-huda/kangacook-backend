@@ -1,4 +1,3 @@
-# recipes/models.py
 from django.db import models
 
 class Recipe(models.Model):
@@ -6,6 +5,8 @@ class Recipe(models.Model):
     description = models.TextField()
     ingredients = models.TextField()
     instructions = models.TextField()
+    image_url = models.URLField(max_length=200, blank=True, null=True)
+    user_email = models.EmailField(default='default@example.com')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

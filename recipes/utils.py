@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from .models import Recipe
 from .serializers import RecipeSerializer
+from rest_framework.parsers import JSONParser
 
 
 def getRecipesList(request):
@@ -18,7 +19,12 @@ def getRecipeDetail(request, pk):
 def createRecipe(request):
     data = request.data
     recipe = Recipe.objects.create(
-        body=data['body']
+        title=data.get('title', ''),
+        description=data.get('description', ''),
+        ingredients=data.get('ingredients', ''),
+        instructions=data.get('instructions', ''),
+        image_url=data.get('image_url', ''),
+        user_email=data.get('user_email', ''),
     )
     serializer = RecipeSerializer(recipe, many=False)
     return Response(serializer.data)
@@ -27,11 +33,9 @@ def updateRecipe(request, pk):
     data = request.data
     recipe = Recipe.objects.get(id=pk)
     serializer = RecipeSerializer(instance=recipe, data=data)
-
     if serializer.is_valid():
         serializer.save()
-
-    return serializer.data
+    return Response(serializer.data)
 
 
 def deleteRecipe(request, pk):

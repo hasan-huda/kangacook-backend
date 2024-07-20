@@ -1,11 +1,13 @@
+# recipes/urls.py
+
 from django.urls import path
 from . import views
 
 urlpatterns = [
     path('', views.getRoutes, name="routes"),
-    path('recipes/', views.getRecipes, name="recipes"),
-    path('recipes/create/', views.createRecipe, name="create-recipe"),
-    path('recipes/<str:pk>/', views.getRecipe, name="recipe"),
-    path('recipes/<str:pk>/update/', views.updateRecipe, name="update-recipe"),
-    path('recipes/<str:pk>/delete/', views.deleteRecipe, name="delete-recipe"),
+    path('', views.getRecipes, name="recipes"),
+    path('create/', views.getRecipes, name="create-recipe"),
+    path('<str:pk>/', views.getRecipe, name="recipe"),
+    path('<str:pk>/update/', views.updateRecipe, name="update-recipe"),
+    path('<str:pk>/delete/', views.deleteRecipe, name="delete-recipe"),
 ]
