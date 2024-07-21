@@ -5,7 +5,7 @@ from rest_framework.parsers import JSONParser
 
 
 def getRecipesList(request):
-    recipes = Recipe.objects.all().order_by('-updated')
+    recipes = Recipe.objects.all().order_by('-updated_at')
     serializer = RecipeSerializer(recipes, many=True)
     return Response(serializer.data)
 
@@ -25,6 +25,7 @@ def createRecipe(request):
         instructions=data.get('instructions', ''),
         image_url=data.get('image_url', ''),
         user_email=data.get('user_email', ''),
+        cooking_time=data.get('cooking_time', 0)
     )
     serializer = RecipeSerializer(recipe, many=False)
     return Response(serializer.data)
