@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     'ec2-3-145-141-29.us-east-2.compute.amazonaws.com',
+    'kangabucket-hh.s3-website.us-east-2.amazonaws.com',
 ]
 
 
